@@ -45,13 +45,26 @@ const validJwt = (req, res, next) => {
     res.send(403)
     return
   }
+
   req.body.userEmail = jwtPayload.email
+
   next()
 }
+
+router.get('/hearts', (req, res) => {
+  const codigoStatus = Math.random() < 0.5 ? 500 : 200;
+
+  if (codigoStatus === 500) {
+    return res.status(500).json({ erro: "API Online (Requisição não encontrada)" });
+  } else if (codigoStatus === 200) {
+    return res.status(200).json("API Online");
+  }
+});
 
 router.get("/", validJwt, getProducts);
 router.post("/login", Login);
 router.post("/register", Register);
+
 router.get('/heart', (req, res) => {
   const codigoStatus = Math.random() < 0.5 ? 500 : 200;
 
@@ -61,6 +74,7 @@ router.get('/heart', (req, res) => {
     return res.status(200).json("Status 200: O sistema está funcionando");
   }
 });
+
 router.post("/", upload.single("image"), validJwt, addProducts);
 router.delete("/:id", deleteProducts);
 

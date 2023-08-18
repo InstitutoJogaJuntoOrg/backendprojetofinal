@@ -20,35 +20,35 @@ export const getProducts = (req, res) => {
 export const addProducts = (req, res) => {
     const queryUser = `select * from usuarios where email = '${req.body.userEmail}'`
 
-    const queryInsertProduct =
-      "INSERT INTO produtos (`name`, `description`, `price`, `category`, `shipment`, `image`, `idusuario`) VALUES (?, ?, ?, ?, ?, ?, ?)";
-    const queryInsertProductParams = [
-      req.body.name,
-      req.body.description,
-      req.body.price,
-      req.body.category,
-      req.body.shipment,
-      `${req.protocol}://${req.get('projetofinal.jogajuntoinstituto.org')}/${req.file.filename}`
-    ];
+     const queryInsertProduct =
+       "INSERT INTO produtos (`name`, `description`, `price`, `category`, `shipment`, `image`, `idusuario`) VALUES (?, ?, ?, ?, ?, ?, ?)";
+     const queryInsertProductParams = [
+       req.body.name,
+       req.body.description,
+       req.body.price,
+       req.body.category,
+       req.body.shipment,
+       `${req.protocol}://${req.get('host')}/${req.file.filename}`
+     ];
 
-    db.query(queryUser, (err, value) => {
-      if (err) {
-        console.log(err);
-        return res.status(500).json({ error: "Erro ao encontrar usuario no banco" });
-      }
+     db.query(queryUser, (err, value) => {
+       if (err) {
+         console.log(err);
+         return res.status(500).json({ error: "Erro ao encontrar usuario no banco" });
+       }
 
-      if(value.length == 0)
-        return res.status(500).json({error: "Usuario nao encontrado"})
+       if(value.length == 0)
+         return res.status(500).json({error: "Usuario nao encontrado"})
 
-      queryInsertProductParams.push(value[0].idusuarios)
-      db.query(queryInsertProduct, queryInsertProductParams, (err) => {
-        if (err) {
-          console.log(err);
-          return res.status(500).json({ error: "Erro ao adicionar produto" });
-        }
-        return res.status(200).json("Produto cadastrado com sucesso!");
-      });
-    });
+       queryInsertProductParams.push(value[0].idusuarios)
+       db.query(queryInsertProduct, queryInsertProductParams, (err) => {
+         if (err) {
+           console.log(err);
+           return res.status(500).json({ error: "Erro ao adicionar produto" });
+         }
+         return res.status(200).json("Produto cadastrado com sucesso!");
+       });
+     });
   };
 
   export const deleteProducts = (req, res) => {
