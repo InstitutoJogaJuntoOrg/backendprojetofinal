@@ -27,7 +27,7 @@ export const addProducts = (req, res) => {
        req.body.price,
        req.body.category,
        req.body.shipment,
-       `${req.protocol}://${req.get('main.d3cntnqyy0l6l0.amplifyapp.com')}/${req.file.filename}`
+       `${req.protocol}://${req.get('host')}/${req.file.filename}`
      ];
 
      db.query(queryUser, (err, value) => {
