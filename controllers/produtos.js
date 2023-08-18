@@ -34,17 +34,17 @@ export const addProducts = (req, res) => {
      db.query(queryUser, (err, value) => {
        if (err) {
          console.log(err);
-         return res.status(500).json({ error: "Erro ao encontrar usuario no banco" });
+         return res.status(500).json({ error: "Erro ao encontrar usuario no banco", eMessage: err });
        }
 
        if(value.length == 0)
-         return res.status(500).json({error: "Usuario nao encontrado"})
+         return res.status(500).json({error: "Usuario nao encontrado", eMessage: err})
 
        queryInsertProductParams.push(value[0].idusuarios)
        db.query(queryInsertProduct, queryInsertProductParams, (err) => {
          if (err) {
            console.log(err);
-           return res.status(500).json({ error: "Erro ao adicionar produto" });
+           return res.status(500).json({ error: "Erro ao adicionar produto", eMessage: err });
          }
          return res.status(200).json("Produto cadastrado com sucesso!");
        });
