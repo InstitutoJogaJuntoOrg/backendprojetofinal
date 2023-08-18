@@ -19,6 +19,7 @@ export const getProducts = (req, res) => {
 
 export const addProducts = (req, res) => {
     const queryUser = `select * from usuarios where email = '${req.body.userEmail}'`
+
      const queryInsertProduct =
        "INSERT INTO produtos (`name`, `description`, `price`, `category`, `shipment`, `image`, `idusuario`) VALUES (?, ?, ?, ?, ?, ?, ?)";
      const queryInsertProductParams = [
@@ -27,7 +28,7 @@ export const addProducts = (req, res) => {
        req.body.price,
        req.body.category,
        req.body.shipment,
-       `${req.protocol}://${req.get('host')}/${req.file.filename}`
+       `${req.protocol}://${req.get('apipf.jogajuntoinstituto.org')}/${req.file.filename}`
      ];
 
      db.query(queryUser, (err, value) => {

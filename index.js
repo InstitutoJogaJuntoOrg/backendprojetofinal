@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import useRoutes from "./routes/products.js";
 
-const PORT = process.env.PORT || 3301
+const PORT = process.env.PORT || 3300
 
 const app = express();
 
