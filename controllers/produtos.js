@@ -28,7 +28,7 @@ export const addProducts = (req, res) => {
        req.body.price,
        req.body.category,
        req.body.shipment,
-       `${req.protocol}://${req.get('apipf.jogajuntoinstituto.org')}/${req.file.filename}`
+       `${req.protocol}://${req.get('host')}/${req.file.filename}`
      ];
 
      db.query(queryUser, (err, value) => {
