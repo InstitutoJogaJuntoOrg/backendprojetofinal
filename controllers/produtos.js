@@ -28,7 +28,7 @@ export const addProducts = (req, res) => {
        req.body.price,
        req.body.category,
        req.body.shipment,
-       `${req.protocol}://${req.get('host')}/${req.file.filename}`
+       req.file.filename
      ];
 
      db.query(queryUser, (err, value) => {
