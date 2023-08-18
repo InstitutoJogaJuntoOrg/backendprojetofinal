@@ -57,7 +57,7 @@ router.get('/hearts', (req, res) => {
   if (codigoStatus === 500) {
     return res.status(500).json({ erro: "APIONLINE" });
   } else if (codigoStatus === 200) {
-    return res.status(200).json("APIONLINE");
+    return res.status(200).json("API Online");
   }
 });
 
