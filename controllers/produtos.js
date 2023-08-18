@@ -19,7 +19,8 @@ export const getProducts = (req, res) => {
 
 export const addProducts = (req, res) => {
     const queryUser = `select * from usuarios where email = '${req.body.userEmail}'`
-
+    const domain = 'main.d3cntnqyy0l6l0.amplifyapp.com'; // Substitua pelo seu domínio real
+    const imageUrl = `${req.protocol}://${domain}/${req.file.filename}`;
      const queryInsertProduct =
        "INSERT INTO produtos (`name`, `description`, `price`, `category`, `shipment`, `image`, `idusuario`) VALUES (?, ?, ?, ?, ?, ?, ?)";
      const queryInsertProductParams = [
@@ -28,7 +29,7 @@ export const addProducts = (req, res) => {
        req.body.price,
        req.body.category,
        req.body.shipment,
-       `${req.protocol}://${req.get('main.d3cntnqyy0l6l0.amplifyapp.com')}/${req.file.filename}`
+       imageUrl,
      ];
 
      db.query(queryUser, (err, value) => {
