@@ -38,7 +38,7 @@ export const addProducts = (req, res) => {
        }
 
        if(value.length == 0)
-         return res.status(500).json({error: "Usuario nao encontrado", eMessage: err})
+         return res.status(500).json({error: "Usuario nao encontrado", eMessage: err })
 
        queryInsertProductParams.push(value[0].idusuarios)
        db.query(queryInsertProduct, queryInsertProductParams, (err) => {
