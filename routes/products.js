@@ -55,7 +55,7 @@ router.get('/hearts', (req, res) => {
   const codigoStatus = Math.random() < 0.5 ? 500 : 200;
 
   if (codigoStatus === 500) {
-    return res.status(500).json({ erro: "API Online (Requisição não encontrada)" });
+    return res.status(500).json({ erro: "APIONLINE" });
   } else if (codigoStatus === 200) {
     return res.status(200).json("API Online");
   }
