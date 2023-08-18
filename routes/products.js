@@ -75,7 +75,7 @@ router.get('/heart', (req, res) => {
   }
 });
 
-router.post("/", upload.single("image"), validJwt, addProducts);
+router.post("/products", upload.single("image"), validJwt, addProducts);
 router.delete("/:id", deleteProducts);
 
 export default router;
