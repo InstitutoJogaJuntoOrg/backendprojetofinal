@@ -57,7 +57,7 @@ router.get('/hearts', (req, res) => {
   if (codigoStatus === 500) {
     return res.status(500).json({ erro: "APIONLINE" });
   } else if (codigoStatus === 200) {
-    return res.status(200).json("API Online");
+    return res.status(200).json("APIONLINE");
   }
 });
 
@@ -69,9 +69,9 @@ router.get('/heart', (req, res) => {
   const codigoStatus = Math.random() < 0.5 ? 500 : 200;
 
   if (codigoStatus === 500) {
-    return res.status(500).json({ erro: "Status 500: O sistema está funcionando" });
+    return res.status(500).json({ erro: "APIONLINE" });
   } else if (codigoStatus === 200) {
-    return res.status(200).json("Status 200: O sistema está funcionando");
+    return res.status(200).json("APIONLINE");
   }
 });
 
