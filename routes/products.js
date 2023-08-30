@@ -9,8 +9,8 @@ import {
   Register,
   deleteProducts,
 } from "../controllers/produtos.js";
-import jwt from 'jsonwebtoken';
-import {secretKey} from '../tokens/secret-token.js'
+import jwt from "jsonwebtoken";
+import { secretKey } from "../tokens/secret-token.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -20,7 +20,7 @@ const storage = multer.diskStorage({
     cb(null, path.join(__dirname, "..", "uploads"));
   },
   filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1E9);
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
     const fileExt = file.originalname.split(".").pop();
     cb(null, `${uniqueSuffix}.${fileExt}`);
   },
@@ -34,28 +34,30 @@ const upload = multer({
 const router = express.Router();
 
 const validJwt = (req, res, next) => {
-  const authToken = req.headers.authorization
-  if(!authToken) {
-    res.send(403)
-    return
+  const authToken = req.headers.authorization;
+  if (!authToken) {
+    res.send(403);
+    return;
   }
 
-  const jwtPayload = jwt.verify(authToken, secretKey)
-  if(!jwtPayload) {
-    res.send(403)
-    return
+  const jwtPayload = jwt.verify(authToken, secretKey);
+  if (!jwtPayload) {
+    res.send(403);
+    return;
   }
 
-  req.body.userEmail = jwtPayload.email
+  req.body.userEmail = jwtPayload.email;
 
-  next()
-}
+  next();
+};
 
-router.get('/hearts', (req, res) => {
+router.get("/hearts", (req, res) => {
   const codigoStatus = Math.random() < 0.5 ? 500 : 200;
 
   if (codigoStatus === 500) {
-    return res.status(500).json({ erro: "API Online (Requisição não encontrada)" });
+    return res
+      .status(500)
+      .json({ erro: "API Online (Requisição não encontrada)" });
   } else if (codigoStatus === 200) {
     return res.status(200).json("API Online");
   }
@@ -65,11 +67,13 @@ router.get("/", validJwt, getProducts);
 router.post("/login", Login);
 router.post("/register", Register);
 
-router.get('/heart', (req, res) => {
+router.get("/heart", (req, res) => {
   const codigoStatus = Math.random() < 0.5 ? 500 : 200;
 
   if (codigoStatus === 500) {
-    return res.status(500).json({ erro: "Status 500: O sssssistema está funcionando" });
+    return res
+      .status(500)
+      .json({ erro: "Status 500: O sssssistema está funcionando" });
   } else if (codigoStatus === 200) {
     return res.status(200).json("Status 200: O sistema está funcionando");
   }

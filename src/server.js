@@ -9,6 +9,7 @@ class Server {
     this.app = express();
     this.loadMiddlewares();
     this.loadRoutes();
+    this.loadDbConnection();
   }
 
   loadMiddlewares() {
@@ -19,6 +20,10 @@ class Server {
 
   async loadRoutes() {
     await require("./router")(this.app);
+  }
+
+  async loadDbConnection() {
+    await require("./config").Database();
   }
 }
 
