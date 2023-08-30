@@ -1,11 +1,15 @@
-const jwtValidator = (req, res, next) => {
-  const authToken = req.headers.authorization;
-  if (!authToken) return res.send(403).json({ msg: "Jwt Token not provided." });
+const jwt = require("jsonwebtoken");
 
-  const jwtPayload = jwt.verify(authToken, secretKey);
+const jwtValidator = (req, res, next) => {
+  const bearerToken = req.headers.authorization;
+  if (!bearerToken)
+    return res.send(403).json({ msg: "Jwt Token not provided." });
+
+  const tokenJwt = bearerToken.split(" ")[1];
+  const jwtPayload = jwt.verify(tokenJwt, process.env.JWT_TOKEN);
   if (!jwtPayload) return res.send(403).json({ msg: "Jwt token not valid." });
 
-  req.body.userEmail = jwtPayload.email;
+  req.body.userId = jwtPayload.userId;
 
   next();
 };

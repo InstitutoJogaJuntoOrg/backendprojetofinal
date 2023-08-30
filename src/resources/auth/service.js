@@ -21,9 +21,13 @@ module.exports = {
       const doesPwdMatch = await bcrypt.compare(password, dbUser.password);
       if (!doesPwdMatch) return res.json({ msg: "Senha incorreta" });
 
-      const jwtToken = jwt.sign({ userId: dbUser.id }, process.env.JWT_TOKEN, {
-        expiresIn: "24h",
-      });
+      const jwtToken = jwt.sign(
+        { userId: dbUser.idusuarios },
+        process.env.JWT_TOKEN,
+        {
+          expiresIn: "24h",
+        }
+      );
 
       delete dbUser.password;
 
