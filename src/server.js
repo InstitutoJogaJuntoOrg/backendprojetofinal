@@ -23,7 +23,14 @@ class Server {
   }
 
   async loadDbConnection() {
-    await require("./config").Database();
+    const dbInstance = await require("./config").Database();
+
+    try {
+      dbInstance.connect();
+      console.log("Sucefully connected to database");
+    } catch (e) {
+      console.error("Error in connecting to database: ", e.message);
+    }
   }
 }
 
