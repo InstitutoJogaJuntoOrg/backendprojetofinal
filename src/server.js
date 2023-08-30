@@ -1,6 +1,6 @@
-import express from "express";
-import cors from "cors";
-import morgan from "morgan";
+const express = require("express");
+const cors = require("cors");
+const morgan = require("morgan");
 
 class Server {
   app;
@@ -17,11 +17,9 @@ class Server {
     this.app.use(morgan("dev"));
   }
 
-  loadRoutes() {
-    this.app.get("/api", (req, res) =>
-      res.json({ message: "Api is up and running!" })
-    );
+  async loadRoutes() {
+    await require("./router")(this.app);
   }
 }
 
-export default new Server().app;
+module.exports = new Server().app;
