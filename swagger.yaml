@@ -8,6 +8,13 @@ schemes:
   - https
 
 paths:
+  /api:
+    get:
+      summary: Verifica se API esta rodando
+      responses:
+        200:
+          description: Api is up and running!
+
   /login:
     post:
       summary: Efetua o login e retorna token e dados do usuario
