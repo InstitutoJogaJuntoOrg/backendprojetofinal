@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
+const path = require("path");
 
 class Server {
   app;
@@ -17,6 +18,9 @@ class Server {
     this.app.use(express.json());
     this.app.use(cors());
     this.app.use(morgan("dev"));
+
+    const uploadsFolderPath = path.join(__dirname, 'uploads')
+    this.app.use(express.static(uploadsFolderPath));
   }
 
   async loadRoutes() {
@@ -35,7 +39,6 @@ class Server {
   }
 
   async loadSwagger() {
-    const path = await require("path");
     const fs = await require("fs");
     const yaml = await require("yaml");
     const swaggerUi = await require("swagger-ui-express");
