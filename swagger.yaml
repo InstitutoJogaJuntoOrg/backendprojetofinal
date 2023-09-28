@@ -1,0 +1,172 @@
+swagger: "2.0"
+info:
+  title: "Joga Junto API"
+  version: 1.0.0
+
+schemes:
+  - http
+  - https
+
+paths:
+  /api:
+    get:
+      summary: Verifica se API esta rodando
+      responses:
+        200:
+          description: Api is up and running!
+
+  /login:
+    post:
+      summary: Efetua o login e retorna token e dados do usuario
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: usuario
+          description: Email e senha do Usuario.
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+              password:
+                type: string
+      responses:
+        200:
+          description: User object with Jwt Token
+          schema:
+            type: object
+            properties:
+              msg:
+                type: string
+                description: Success message.
+              token:
+                type: string
+                description: The Authorization token.
+              user:
+                type: object
+                properties:
+                  idusuarios:
+                    type: number
+                    description: User id
+                  email:
+                    type: string
+                    description: User email
+
+  /register:
+    post:
+      summary: Efetua o registro do usuario
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: usuario
+          description: Email e senha do Usuario.
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+              password:
+                type: string
+      responses:
+        200:
+          description: User object with Jwt Token
+          schema:
+            type: object
+            properties:
+              msg:
+                type: string
+                description: Success message.
+
+  /:
+    get:
+      summary: Pega todos os produtos que o usuario tem cadastrado
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: Authorization
+          type: string
+          required: true
+      responses:
+        200:
+          description: Retorna um array de produtos que o usuario cadastrou
+          schema:
+            type: object
+            properties:
+              idprodutos:
+                type: integer
+              name:
+                type: string
+              description:
+                type: string
+              price:
+                type: string
+              category:
+                type: string
+              shipment:
+                type: string
+              image:
+                type: string
+              idusuario:
+                type: integer
+                description: Id do usuario dono
+
+    post:
+      summary: Cria um novo produto para o usuario logado
+      consumes:
+        - multipart/form-data
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: Authorization
+          type: string
+          required: true
+        - in: formData
+          name: name
+          type: string
+          description: Nome do produto.
+        - in: formData
+          name: description
+          type: string
+          description: Descricao do produto.
+        - in: formData
+          name: price
+          type: string
+          description: Preco do produto.
+        - in: formData
+          name: category
+          type: string
+          description: Categoria do produto.
+        - in: formData
+          name: shipment
+          type: string
+          description: Preco do frete.
+        - in: formData
+          name: image
+          type: file
+          description: Imagem do produto.
+      responses:
+        200:
+          description: Produto cadastrado com sucesso!
+
+  /{produtoId}:
+    delete:
+      summary: Deleta um produto pelo id do produto
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: Authorization
+          type: string
+          required: true
+        - in: path
+          name: produtoId
+          required: true
+          type: integer
+          description: Id do produto.
+      responses:
+        200:
+          description: Retorna uma mensagem de sucesso
